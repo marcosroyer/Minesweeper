@@ -4,6 +4,7 @@ const minDec = document.getElementById('minDec')
 const secUni = document.getElementById('secUni')
 const secDec = document.getElementById('secDec')
 let tabuleiro = null
+const crono = new Chronometer()
 const nivel = {
     'Fácil': {tamanho: 8, qtd: 10},
     'Normal': {tamanho: 16, qtd: 40},
@@ -19,10 +20,10 @@ function criaTabuleiro(){
 }
 
 
-let escolha = document.getElementById('formulario')
-escolha.addEventListener('change', (event)=>{
+let formEscolha = document.getElementById('formulario')
+formEscolha.addEventListener('change', (event)=>{
     faxina()
-    criaTabuleiro()
+    //criaTabuleiro()
     
     let escolha = event.target.value
     let divJogo = document.getElementById('jogo')
@@ -35,10 +36,26 @@ escolha.addEventListener('change', (event)=>{
     }
     escolhido = escolha
     console.log(escolhido)
+    let counterFlag = document.getElementById('counterFlag')
+    counterFlag.innerText = nivel[escolhido].qtd
+    desenhaTabuleiro(nivel[escolhido].tamanho)
 })
 console.log(escolhido)
 //let tabuleiro = new Tabuleiro(nivel[escolhido].tamanho)
-let crono = new Chronometer()
+
+
+function faxina(){
+    crono.stop()
+    crono.reset()
+    printTime()
+    let componente = document.getElementById('tabuleiro')
+    while (componente.firstChild){
+        componente.firstChild.remove()
+    }
+    tabuleiro = null
+
+}
+
 
 
 function handleOneClick(event){
@@ -109,22 +126,14 @@ function handleRightClick(event){
 
 }
 
-function faxina(){
-    crono.stop()
-    crono.reset()
-    printTime()
-    let componente = document.getElementById('tabuleiro')
-    while (componente.firstChild){
-        componente.firstChild.remove()
-    }
-    //tabuleiro = null
-    let counterFlag = document.getElementById('counterFlag')
-    counterFlag.innerText = nivel[escolhido].qtd
-}
+
 
 
 
 function desenhaTabuleiro(tamanho){
+    if (tabuleiro === null){
+        tabuleiro = new Tabuleiro(nivel[escolhido].tamanho)
+    }
     let componente = document.getElementById('tabuleiro')
     for(let linha = 0; linha < tamanho; linha++){
         let line = document.createElement('div')  
@@ -144,9 +153,7 @@ function desenhaTabuleiro(tamanho){
 }
 
 btnTabuleiro.addEventListener('click', () =>{
-    if (tabuleiro === null){
-        tabuleiro = new Tabuleiro(nivel[escolhido].tamanho)
-    }
+
     desenhaTabuleiro(nivel[escolhido].tamanho) //arrumar tamanho
 })
 
