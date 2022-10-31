@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./styles/styles.css">
+    </head>
+    <body>
+        <main>
+            <div id="jogo" class="normal">
+                <div id="placar">
+                    <div class="btnContainer">
+                        <form id="formulario">
+                            <select class="nivel" name="nivel" id="nivel">
+                                <option value="Fácil">Fácil</option>
+                                <option value="Normal" selected>Normal</option>
+                                <option value="Difícil">Difícil</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class="info">
+                        <div class="flag">&#128681;<span id="counterFlag" class="flag">40</span></div>
+
+                        <div class="crono">&#9201;
+                            <span id="minDec" class="number">0</span><span id="minUni" class="number">0</span><span>:</span><span id="secDec" class="number">0</span><span id="secUni" class="number">0</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="tabuleiro"></div>
+            </div>
+            <div id="controles">
+                <button id="btnTabuleiro">Gerar Tabuleiro</button>
+            </div>
+        </main>
+        <script type="text/javascript" src="./js/Minesweeper.js"></script>
+        <script type="text/javascript" src="./js/Chronometer.js"></script>
+        <script type="text/javascript" src="./js/index.js"></script>
+       
+    </body>
+</html>
+

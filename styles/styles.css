@@ -1,0 +1,141 @@
+body{
+    background-color: white;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+}
+#jogo{
+    border: 1px solid black;
+}
+
+.facil{
+    width: 320px;
+}
+
+.normal{
+    width: 640px;
+}
+
+.dificil{
+    width: 800px;
+}
+
+#placar{
+    /*width: 100%; */
+    height: 80px;
+    background-color: #3c803f;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+
+.nivel{
+    background-color: white ;
+    color: #3c803f ;
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 700;
+    color: #3c803f;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.btnContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.info{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-size: 2em;
+    font-family: Helvetica Neue;
+    font-weight: 900;
+    font-style: normal;
+
+}
+
+.info span{
+    font-size: 0.8em;
+}
+
+.flag{
+    font-size: 1em;
+}
+
+.quadrado{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    align-items: center;
+}
+
+.inicial-escuro{
+    background-color: #a2d149;
+    color: #a2d149;
+}
+
+.inicial-claro{
+    background-color: #aad751;
+    color: #aad751;
+}
+
+.clicado-claro{
+    background-color: #e5c29f;
+    color: blue;
+}
+
+.clicado-escuro{
+    background-color: #d7b899;
+    color: black;
+}
+
+.tabuleiro{
+    display: flex;
+    flex-direction: column;    
+}
+
+.linha{
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+.numero-um{
+    color: blue;
+}
+
+.numero-dois{
+    color: green;
+}
+
+.numero-tres{
+    color: red;
+}
+
+.numero-quatro{
+    color: purple;
+}
+
+.numero-cinco{
+    color: orange;
+}
