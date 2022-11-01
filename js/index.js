@@ -163,12 +163,13 @@ function handleDblClick(event){
     console.log('duplo')
     let posicao = event.target.id.split('|')
     let coordenada = {linha: Number(posicao[0]), coluna: Number(posicao[1])}
-    console.log(tabuleiro.hasNeighborFlag(coordenada))
+    let resultado = tabuleiro.corolarioLogico(coordenada)
+    renderiza(resultado)
 }
 
 
 function renderiza(terminou){
-    //console.log('no renderiza')
+    console.log('no renderiza')
     for(let linha = 0; linha < nivel[escolhido].tamanho; linha++){
         for(let coluna = 0; coluna < nivel[escolhido].tamanho; coluna++){
             let elemento = document.getElementById(`${linha}|${coluna}`)
@@ -180,10 +181,10 @@ function renderiza(terminou){
                 elemento.innerHTML = info.conteudo === 'F'? '&#128681;' : info.conteudo
             }
             
-            if (info.clicado === true){
-                elemento.setAttribute('class',info.classes.clicado)
-            } else {
+            if ((info.clicado !== true) || (info.conteudo === 'F')){
                 elemento.setAttribute('class',info.classes.naoClicado)
+            } else {
+                elemento.setAttribute('class',info.classes.clicado)
             }
             
         }

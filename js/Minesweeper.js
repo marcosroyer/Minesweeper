@@ -199,6 +199,30 @@ class Tabuleiro{
         return contador
     }
 
+    corolarioLogico(coordenada){
+        console.log('no corolario')
+        let conteudoPermitido = ['1', '2', '3', '4', '5', '6']
+        let conteudo = this.tabuleiro[coordenada.linha][coordenada.coluna].conteudo
+        if (!conteudoPermitido.includes(conteudo)){
+            return
+        }
+        console.log(`no corolario. Tem ${typeof this.hasNeighborFlag(coordenada)} flags`)
+        if(+conteudo === this.hasNeighborFlag(coordenada)){
+            console.log('tinha flag')
+            for(let linha = Math.max(0,coordenada.linha - 1); linha < Math.min(coordenada.linha + 2,this.tamanho); linha++){
+                for(let coluna = Math.max(0, coordenada.coluna - 1); coluna < Math.min(coordenada.coluna + 2, this.tamanho); coluna++){
+                    if ((this.tabuleiro[linha][coluna].clicado === false) && (this.tabuleiro[linha][coluna].conteudo !== 'F')){
+                        this.tabuleiro[linha][coluna].clicado = true
+                        if (this.tabuleiro[linha][coluna] === 'B'){
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+
 }
 
 
