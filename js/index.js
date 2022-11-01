@@ -10,6 +10,9 @@ const nivel = {
     'Normal': {tamanho: 16, qtd: 40},
     'Difícil': {tamanho: 20, qtd: 64}
 }
+const doc = document.addEventListener("DOMContentLoaded", (event)=> {
+    desenhaTabuleiro(16) //tamanho padrão
+});
 
 let escolhido = 'Normal'
 
@@ -36,7 +39,6 @@ formEscolha.addEventListener('change', (event)=>{
     }
     escolhido = escolha
     console.log(escolhido)
-    let counterFlag = document.getElementById('counterFlag')
     counterFlag.innerText = nivel[escolhido].qtd
     desenhaTabuleiro(nivel[escolhido].tamanho)
 })
@@ -53,7 +55,8 @@ function faxina(){
         componente.firstChild.remove()
     }
     tabuleiro = null
-
+    let counterFlag = document.getElementById('counterFlag')
+    counterFlag.innerText = nivel[escolhido].qtd
 }
 
 
@@ -79,6 +82,7 @@ function handleOneClick(event){
         renderiza(true)
         alert('Você PERDEUUUUUUU!')  
         faxina()  
+        desenhaTabuleiro(nivel[escolhido].tamanho)
     } else {
         tabuleiro.libera()
         renderiza(false)
@@ -99,7 +103,7 @@ function handleRightClick(event){
         let spanContador = document.getElementById('counterFlag')
         let contador = Number(spanContador.innerText)
         let elemento = document.getElementById(`${coordenada.linha}|${coordenada.coluna}`)
-        console.log(tabuleiro.tabuleiro[coordenada.linha][coordenada.coluna].conteudo)
+        
         if (tabuleiro.tabuleiro[coordenada.linha][coordenada.coluna].conteudo === 'F'){
             contador++
             elemento.innerHTML = info.anterior
@@ -120,6 +124,7 @@ function handleRightClick(event){
     if (tabuleiro.checkForWin() === true){
         faxina()
         alert('GANHOU !!!!')
+        desenhaTabuleiro(nivel[escolhido].tamanho)
         
     }
     
@@ -145,6 +150,7 @@ function desenhaTabuleiro(tamanho){
             quadrado.setAttribute('class', classe)
             quadrado.setAttribute('id',`${linha}|${coluna}`)
             quadrado.addEventListener('click', handleOneClick)
+            quadrado.addEventListener('dblclick', handleDblClick)
             quadrado.addEventListener('contextmenu', handleRightClick)
             line.appendChild(quadrado)
         }
@@ -152,10 +158,14 @@ function desenhaTabuleiro(tamanho){
     }
 }
 
-btnTabuleiro.addEventListener('click', () =>{
 
-    desenhaTabuleiro(nivel[escolhido].tamanho) //arrumar tamanho
-})
+function handleDblClick(event){
+    console.log('duplo')
+    let posicao = event.target.id.split('|')
+    let coordenada = {linha: Number(posicao[0]), coluna: Number(posicao[1])}
+    console.log(tabuleiro.hasNeighborFlag(coordenada))
+}
+
 
 function renderiza(terminou){
     //console.log('no renderiza')

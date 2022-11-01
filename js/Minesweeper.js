@@ -20,6 +20,7 @@ class Tabuleiro{
         this.started = false
         this.povoaTabuleiro()
         this.qtdBombas
+        this.qtdFlags = 10
         this.hits = 0
     }
 
@@ -182,13 +183,21 @@ class Tabuleiro{
         }
 
         }
-
-        
-
-        
     }        
     
-
+    hasNeighborFlag(coordenada){
+        let contador = 0
+        for(let linha = Math.max(0,coordenada.linha - 1); linha < Math.min(coordenada.linha + 2,this.tamanho); linha++){
+            for(let coluna = Math.max(0, coordenada.coluna - 1); coluna < Math.min(coordenada.coluna + 2, this.tamanho); coluna++){
+                
+                if ((this.tabuleiro[linha][coluna].clicado === false) && (this.tabuleiro[linha][coluna].conteudo === 'F')){
+                    contador++
+                }
+            }
+        }
+        console.log(`Estou na linha ${coordenada.linha} e coluna ${coordenada.coluna}. Flags vizinhas ${contador}.`)
+        return contador
+    }
 
 }
 
