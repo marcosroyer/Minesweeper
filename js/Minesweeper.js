@@ -17,12 +17,13 @@ class Tabuleiro{
         this.tamanho = tamanho
         this.espacamento = tamanho === 8 ? 1 : 3
         this.inicio = null
-        this.tabuleiro = [...Array(this.tamanho)].map( () => [...Array(this.tamanho)])  //.fill('')
+        this.tabuleiro = [...Array(this.tamanho)].map( () => [...Array(this.tamanho)]) 
         this.started = false
         this.povoaTabuleiro()
         this.qtdBombas
         this.qtdFlags = 10
         this.hits = 0
+        this.qualquerCoisa = 0
     }
 
     checkForWin(){
@@ -71,16 +72,16 @@ class Tabuleiro{
         }
     }
 
-    geraBombas(){
+    geraMinas(){
         //garante que ao redor do primeiro click esteja vazio para o jogador ter por onde começar a análise
-        console.log(`mandaram colocar ${this.qtdBombas}`)
-        for(let linha = Math.max(0,this.inicio.linha - this.espacamento); linha < Math.min(this.inicio.linha + this.espacamento + 1,this.tamanho); linha++){
+        //marca com a letra I (inicial) estes locais. O espaçamento depende do nível. O nível fácil tem espaçamento menor.
+        for(let linha = Math.max(0,this.inicio.linha - this.espacamento); linha < Math.min(this.inicio.linha + this.espacamento + 1, this.tamanho); linha++){
             for(let coluna = Math.max(0,this.inicio.coluna - this.espacamento); coluna < Math.min(this.inicio.coluna + this.espacamento + 1, this.tamanho); coluna++){
                 this.tabuleiro[linha][coluna].conteudo = 'I'
-
             }
         }
 
+        //enquanto todas as bombas não fore
         let bombasColocadas = 0
         while (bombasColocadas < this.qtdBombas){
             let coordenada = this.geraCoordenada(this.tamanho)
@@ -141,10 +142,12 @@ class Tabuleiro{
         return this.tabuleiro[linha][coluna]
     }
 
+    //recebe as coordenadas do clique inicial e a quantidade de minas a serem colocadas
+    //chama os métodos para colocar as minas e calcular o conteúdo dos quadrados sem mina
     formataTabuleiro(qtd, inicio){
         this.inicio = inicio
         this.qtdBombas = qtd
-        this.geraBombas()
+        this.geraMinas()
         this.verificaProximidade()
 
     }

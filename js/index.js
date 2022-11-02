@@ -76,22 +76,26 @@ function faxina(){
 
 
 function handleOneClick(event){
-
+    //cada quadrado tem como id a expressão 'x|y', onde x = linha e y = coluna
+    //o código obtem o id e transforma em um objeto com as coordenadas para pesquisar no tabuleiro
     let posicao = event.target.id.split('|')
     let coordenada = {linha: Number(posicao[0]), coluna: Number(posicao[1])}
 
+    //se já houver flag marcada, não faz nada
     if (tabuleiro.tabuleiro[coordenada.linha][coordenada.coluna].flag === true) return
 
+    //se ainda não começou o jogo, marca o início, gera as bombas e inicia o cronômetro
     if (tabuleiro.started === false){
         tabuleiro.started = true
-        let counterFlag = document.getElementById('counterFlag').innerText = nivel[escolhido].qtd
-        tabuleiro.formataTabuleiro(nivel[escolhido].qtd, coordenada) //atualizar com nivel de dificuldade
+        tabuleiro.formataTabuleiro(nivel[escolhido].qtd, coordenada) 
         crono.start(printTime)
-
-
     }
     
+    //marca o quadrado como clicado lá no tabuleiro
     tabuleiro.tabuleiro[coordenada.linha][coordenada.coluna].clicado = true
+    //se no quadrado clicado existir uma mina, avisa ao jogador que ele perdeu, renderiza a tela
+    //apaga tudo e redesenha o tabuleiro
+    //se não tiver mina, verifica se clicou em espaço em branco e revela os quadrados ao redor. Renderiza a tela.
     if (tabuleiro.tabuleiro[coordenada.linha][coordenada.coluna].conteudo === 'B'){
         renderiza(true)
         alert('Você PERDEUUUUUUU!')  
