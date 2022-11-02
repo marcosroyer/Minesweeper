@@ -40,9 +40,8 @@ class Tabuleiro{
         return this.qtdBombas === this.hits ? true : false
     }
 
-
+    //método que recebe um limite e gera coordenadas X e Y dentro do limite estipulado
     geraCoordenada(limite) {
-        //gera coordenadas aleatórias dentro do limite estipulado
         return {
             linha: Math.floor(Math.random() * limite),
             coluna: Math.floor(Math.random() * limite)
@@ -73,7 +72,7 @@ class Tabuleiro{
 
     geraBombas(){
         //garante que ao redor do primeiro click esteja vazio para o jogador ter por onde começar a análise
-        console.log(`mandaram colocar ${this.qtdBombas}`)
+        //nestes quadrados, preenche o conteúdo com a letra I (inicial).
         for(let linha = Math.max(0,this.inicio.linha - this.espacamento); linha < Math.min(this.inicio.linha + this.espacamento + 1,this.tamanho); linha++){
             for(let coluna = Math.max(0,this.inicio.coluna - this.espacamento); coluna < Math.min(this.inicio.coluna + this.espacamento + 1, this.tamanho); coluna++){
                 this.tabuleiro[linha][coluna].conteudo = 'I'
@@ -81,13 +80,14 @@ class Tabuleiro{
             }
         }
 
+        //enquanto houver bombas a serem colocadas, chama o metodo de geracao aleatorio de coordenadas
+        //com a coordenada gerada, verifica se o quadrado está vazio. Se estiver, coloca uma mina
         let bombasColocadas = 0
         while (bombasColocadas < this.qtdBombas){
             let coordenada = this.geraCoordenada(this.tamanho)
             let conteudo = this.tabuleiro[coordenada.linha][coordenada.coluna].conteudo
 
             if (conteudo === ''){
-                //this.tabuleiro[coordenadas.x][coordenadas.y] = new Quadrado()
                 this.tabuleiro[coordenada.linha][coordenada.coluna].conteudo = 'B'
                 this.tabuleiro[coordenada.linha][coordenada.coluna].original = 'B'
                 bombasColocadas++
@@ -109,7 +109,9 @@ class Tabuleiro{
         return 0
     }
 
-    verificaProximidade(){
+    //método que calcula o valor de cada célula após a colocacação das minas
+    //visita cada quadrado e, se não houver mina, pesquisa os quadrados ao redor, e conta o número de minas
+    calculaDicas(){
         let porExtenso = {0: '', 1: 'numero-um', 2: 'numero-dois', 3: 'numero-tres', 4: 'numero-quatro', 5: 'numero-cinco', 6: 'numero-seis'}
         for (let linha = 0; linha < this.tamanho; linha++){
             for (let coluna = 0; coluna < this.tamanho; coluna++){
@@ -145,16 +147,14 @@ class Tabuleiro{
         this.inicio = inicio
         this.qtdBombas = qtd
         this.geraBombas()
-        this.verificaProximidade()
+        this.calculaDicas()
 
     }
 
     verifica(coordenada){
         for(let linha = Math.max(0,coordenada.linha - 1); linha < Math.min(coordenada.linha + 2,this.tamanho); linha++){
             for(let coluna = Math.max(0, coordenada.coluna - 1); coluna < Math.min(coordenada.coluna + 2, this.tamanho); coluna++){
-                //console.log('no for do verifica ', linha, coluna)
                 if ((this.tabuleiro[linha][coluna].clicado === true) && (this.tabuleiro[linha][coluna].conteudo === '')){
-                    //console.log('clicado na ', linha, coluna)
                     return true
                 }
             }
