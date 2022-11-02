@@ -15,6 +15,7 @@ class Tabuleiro{
     
     constructor(tamanho){
         this.tamanho = tamanho
+        this.espacamento = tamanho === 8 ? 1 : 3
         this.inicio = null
         this.tabuleiro = [...Array(this.tamanho)].map( () => [...Array(this.tamanho)])  //.fill('')
         this.started = false
@@ -73,8 +74,8 @@ class Tabuleiro{
     geraBombas(){
         //garante que ao redor do primeiro click esteja vazio para o jogador ter por onde começar a análise
         console.log(`mandaram colocar ${this.qtdBombas}`)
-        for(let linha = Math.max(0,this.inicio.linha - 3); linha < Math.min(this.inicio.linha + 4,this.tamanho); linha++){
-            for(let coluna = Math.max(0,this.inicio.coluna - 3); coluna < Math.min(this.inicio.coluna + 4, this.tamanho); coluna++){
+        for(let linha = Math.max(0,this.inicio.linha - this.espacamento); linha < Math.min(this.inicio.linha + this.espacamento + 1,this.tamanho); linha++){
+            for(let coluna = Math.max(0,this.inicio.coluna - this.espacamento); coluna < Math.min(this.inicio.coluna + this.espacamento + 1, this.tamanho); coluna++){
                 this.tabuleiro[linha][coluna].conteudo = 'I'
 
             }
