@@ -213,7 +213,7 @@ class Tabuleiro{
                 for(let coluna = Math.max(0, coordenada.coluna - 1); coluna < Math.min(coordenada.coluna + 2, this.tamanho); coluna++){
                     if ((this.tabuleiro[linha][coluna].clicado === false) && (this.tabuleiro[linha][coluna].conteudo !== 'F')){
                         this.tabuleiro[linha][coluna].clicado = true
-                        if (this.tabuleiro[linha][coluna] === 'B'){
+                        if (this.tabuleiro[linha][coluna].conteudo === 'B'){
                             return true
                         }
                     }

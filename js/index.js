@@ -1,3 +1,6 @@
+const modal = document.getElementById("modal")
+const btnClose = document.getElementById("btnClose")
+
 const btnTabuleiro = document.getElementById('btnTabuleiro')
 const minUni = document.getElementById('minUni')
 const minDec = document.getElementById('minDec')
@@ -10,8 +13,14 @@ const nivel = {
     'Normal': {tamanho: 16, qtd: 40},
     'Difícil': {tamanho: 20, qtd: 64}
 }
-const doc = document.addEventListener("DOMContentLoaded", (event)=> {
+
+btnClose.addEventListener('click', (event)=>{
+    modal.style.display = "none"
+})
+
+document.addEventListener("DOMContentLoaded", (event)=> {
     desenhaTabuleiro(16) //tamanho padrão
+    modal.style.display = "block"
 });
 
 let escolhido = 'Normal'
@@ -30,12 +39,17 @@ formEscolha.addEventListener('change', (event)=>{
     
     let escolha = event.target.value
     let divJogo = document.getElementById('jogo')
+    let divInfo = document.getElementById('info')
+
     if (escolha === 'Fácil'){
         divJogo.setAttribute('class','facil')
+        divInfo.setAttribute('class', 'info menor')
     } else if (escolha === 'Difícil'){
         divJogo.setAttribute('class','dificil')
+        divInfo.setAttribute('class', 'info padrao')
     } else {
         divJogo.setAttribute('class','normal')
+        divInfo.setAttribute('class', 'info padrao')
     }
     escolhido = escolha
     console.log(escolhido)
@@ -136,10 +150,12 @@ function handleRightClick(event){
 
 
 function desenhaTabuleiro(tamanho){
+
     if (tabuleiro === null){
         tabuleiro = new Tabuleiro(nivel[escolhido].tamanho)
     }
     let componente = document.getElementById('tabuleiro')
+    let classeTamanho = nivel[escolhido].tamanho === 20 ? 'tamanho-menor' : 'tamanho'
     for(let linha = 0; linha < tamanho; linha++){
         let line = document.createElement('div')  
         line.setAttribute('class', 'linha')  
@@ -148,6 +164,7 @@ function desenhaTabuleiro(tamanho){
             let classe = tabuleiro.getInfoQuadrado(coordenada).classes.naoClicado
             let quadrado = document.createElement('div')
             quadrado.setAttribute('class', classe)
+            quadrado.classList.add(classeTamanho)
             quadrado.setAttribute('id',`${linha}|${coluna}`)
             quadrado.addEventListener('click', handleOneClick)
             quadrado.addEventListener('dblclick', handleDblClick)
@@ -156,6 +173,7 @@ function desenhaTabuleiro(tamanho){
         }
         componente.appendChild(line) 
     }
+
 }
 
 
@@ -164,7 +182,15 @@ function handleDblClick(event){
     let posicao = event.target.id.split('|')
     let coordenada = {linha: Number(posicao[0]), coluna: Number(posicao[1])}
     let resultado = tabuleiro.corolarioLogico(coordenada)
-    renderiza(resultado)
+    console.log(`o resultado é ${resultado}`)
+    if (resultado === true){
+        renderiza(true)
+        alert('Você PERDEUUUUUUU!')  
+        faxina()  
+        desenhaTabuleiro(nivel[escolhido].tamanho)
+        return
+    }
+    renderiza(false)
 }
 
 
@@ -186,6 +212,8 @@ function renderiza(terminou){
             } else {
                 elemento.setAttribute('class',info.classes.clicado)
             }
+            let classeTamanho = nivel[escolhido].tamanho === 20 ? 'tamanho-menor' : 'tamanho'
+            elemento.classList.add(classeTamanho)
             
         }
     }

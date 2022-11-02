@@ -5,6 +5,25 @@
     </head>
     <body>
         <main>
+<!-- The Modal -->            
+            <div id="modal" class="modal">
+            <!-- Modal content -->
+                <div class="modal-conteudo">
+                    <span id="btnClose" class="btnClose">&times;</span>
+                    <p>A ideia do jogo é simular um campo minado. O objetivo do jogador (e, portanto, modo de vitória) é identificar em quais quadrados estão as minas.</p>
+                    <p>Cada partida começa com um clique aleatório do jogador em um dos quadrados e é garantido que no local escolhido e nos quadrados próximos não haverá uma mina.</p>
+                    <p>Os quadrados já revelados podem ter informação sobre sua vizinhança. Isto é, se o conteúdo revelado for o número 1, é certo que ao redor deste
+                    quadrado existe somente uma mina. Se o conteúdo for o número 2, duas minas. A lógica permanece para os demais números.</p>    
+                    <p>Utilize o botão esquerdo do mouse para revelar o conteúdo de um quadrado.</p>
+                    <p>Utilize o botão direito do mouse para marcar o local com uma bandeira indicativa de existência de uma mina.</p>
+                    <p>Dois cliques com o botão esquerdo pode ser utilizado para revelar todos os quadrados adjacentes, desde que haja o número de bandeiras seja 
+                        idêntico ao seu conteúdo. Ou seja, se o quadrado tem o número 2 e há duas bandeiras ao redor, os outros 6 quadrados serão revelados. Se existir
+                        uma mina (erro de lógica do jogador), ela será disparada e o jogador perde.</p>
+                </div>
+
+            </div>
+<!-- The Modal -->
+
             <div id="jogo" class="normal">
                 <div id="placar">
                     <div class="btnContainer">
@@ -16,10 +35,10 @@
                             </select>
                         </form>
                     </div>
-                    <div class="info">
+                    <div id="info" class="info padrao">
                         <div class="flag">&#128681;<span id="counterFlag" class="flag">40</span></div>
 
-                        <div class="crono">&#9201;
+                        <div id="crono" >&#9201;
                             <span id="minDec" class="number">0</span><span id="minUni" class="number">0</span><span>:</span><span id="secDec" class="number">0</span><span id="secUni" class="number">0</span>
                         </div>
 
