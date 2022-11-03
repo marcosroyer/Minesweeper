@@ -7,6 +7,7 @@ class Quadrado{
         this.tomClaro = false
         this.numero = null
         this.flag = false
+        this.conteudoOriginal = ''
         this.original = ''
     }
 }
@@ -90,6 +91,7 @@ class Tabuleiro{
             if (conteudo === ''){
                 this.tabuleiro[coordenada.linha][coordenada.coluna].conteudo = 'B'
                 this.tabuleiro[coordenada.linha][coordenada.coluna].original = 'B'
+                this.tabuleiro[coordenada.linha][coordenada.coluna].conteudoOriginal = 'B'
                 bombasColocadas++
             }
         } 
@@ -130,6 +132,7 @@ class Tabuleiro{
                 let total = noroeste + norte + nordeste + oeste + leste + sudoeste + sul + sudeste
                 const conteudo = total > 0 ? total.toString() : ''
                 this.tabuleiro[linha][coluna].conteudo = conteudo
+                this.tabuleiro[linha][coluna].conteudoOriginal = conteudo
                 this.tabuleiro[linha][coluna].classes.clicado += ` ${porExtenso[total]}`
             }     
         }

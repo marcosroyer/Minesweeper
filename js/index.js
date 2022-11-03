@@ -233,8 +233,9 @@ function renderiza(terminou){
             }*/
             
             if(terminou === true){
-                elemento.innerHTML = ((info.conteudo === 'B') ||  (info.conteudo === 'F')) ? '&#128163;' : info.conteudo
-                console.log(`${coordenada.linha} e ${coordenada.coluna} conteudo foi: ${info.conteudo}.`)
+                //elemento.innerHTML = ((info.conteudo === 'B') ||  (info.conteudo === 'F')) ? '&#128163;' : info.conteudo
+                elemento.innerHTML = (info.conteudoOriginal === 'B') ? '&#128163;' : info.conteudoOriginal
+                console.log(`${coordenada.linha} e ${coordenada.coluna} conteudo foi: ${info.conteudo}. ${info.conteudoOriginal}`)
                 elemento.setAttribute('class',info.classes.clicado)
             } else {
                 
